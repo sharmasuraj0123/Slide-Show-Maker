@@ -22,7 +22,7 @@ import ssm.view.SlideShowMakerView;
  * the user to name their slideshow, select images to use, select captions for
  * the images, and the order of appearance for slides.
  *
- * @author McKilla Gorilla & _____________
+ * @author McKilla Gorilla & Suraj Sharma
  */
 public class SlideShowMaker extends Application {
     // THIS WILL PERFORM SLIDESHOW READING AND WRITING

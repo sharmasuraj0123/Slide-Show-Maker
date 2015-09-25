@@ -10,7 +10,7 @@ import ssm.view.SlideShowMakerView;
  * and should have custom messages that are different depending on
  * the type of error so as to be informative concerning what went wrong.
  * 
- * @author McKilla Gorilla & _____________
+ * @author McKilla Gorilla & Suraj Sharma
  */
 public class ErrorHandler {
     // APP UI

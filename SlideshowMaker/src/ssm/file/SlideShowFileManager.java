@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.json.Json;
@@ -21,7 +22,7 @@ import ssm.model.SlideShowModel;
 /**
  * This class uses the JSON standard to read and write slideshow data files.
  * 
- * @author McKilla Gorilla & _____________
+ * @author McKilla Gorilla & Suraj Sharma
  */
 public class SlideShowFileManager {
     // JSON FILE READING AND WRITING CONSTANTS
@@ -31,6 +32,7 @@ public class SlideShowFileManager {
     public static String JSON_IMAGE_PATH = "image_path";
     public static String JSON_EXT = ".json";
     public static String SLASH = "/";
+    public static String JSON_CAPTIONS = "captions";
 
     /**
      * This method saves all the data associated with a slide show to
@@ -61,6 +63,7 @@ public class SlideShowFileManager {
         
         // AND SAVE EVERYTHING AT ONCE
         jsonWriter.writeObject(courseJsonObject);
+        os.close();
     }
     
     /**
@@ -79,10 +82,11 @@ public class SlideShowFileManager {
 	slideShowToLoad.reset();
         slideShowToLoad.setTitle(json.getString(JSON_TITLE));
         JsonArray jsonSlidesArray = json.getJsonArray(JSON_SLIDES);
+        
         for (int i = 0; i < jsonSlidesArray.size(); i++) {
 	    JsonObject slideJso = jsonSlidesArray.getJsonObject(i);
 	    slideShowToLoad.addSlide(	slideJso.getString(JSON_IMAGE_FILE_NAME),
-					slideJso.getString(JSON_IMAGE_PATH));
+					slideJso.getString(JSON_IMAGE_PATH) , slideJso.getString(JSON_CAPTIONS));
 	}
     }
 
@@ -121,6 +125,7 @@ public class SlideShowFileManager {
         JsonObject jso = Json.createObjectBuilder()
 		.add(JSON_IMAGE_FILE_NAME, slide.getImageFileName())
 		.add(JSON_IMAGE_PATH, slide.getImagePath())
+                .add(JSON_CAPTIONS, slide.getCaption())
 		.build();
 	return jso;
     }

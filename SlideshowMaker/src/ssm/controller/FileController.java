@@ -2,17 +2,25 @@ package ssm.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import ssm.model.SlideShowModel;
 import ssm.error.ErrorHandler;
 import ssm.file.SlideShowFileManager;
 import ssm.view.SlideShowMakerView;
 import static ssm.StartupConstants.PATH_SLIDE_SHOWS;
+import ssm.model.Slide;
+import static ssm.view.SlideShowMakerView.textField;
 /**
  * This class serves as the controller for all file toolbar operations,
  * driving the loading and saving of slide shows, among other things.
  * 
- * @author McKilla Gorilla & _____________
+ * @author McKilla Gorilla & Suraj Sharma
  */
 public class FileController {
 
@@ -24,6 +32,7 @@ public class FileController {
     
     // THIS GUY KNOWS HOW TO READ AND WRITE SLIDE SHOW DATA
     private SlideShowFileManager slideShowIO;
+    private Object Dialogs;
 
     /**
      * This default constructor starts the program without a slide show file being
@@ -62,12 +71,49 @@ public class FileController {
                 // RESET THE DATA, WHICH SHOULD TRIGGER A RESET OF THE UI
                 SlideShowModel slideShow = ui.getSlideShow();
 		slideShow.reset();
+                
+                
+       
                 saved = false;
 
                 // REFRESH THE GUI, WHICH WILL ENABLE AND DISABLE
                 // THE APPROPRIATE CONTROLS
                 ui.updateToolbarControls(saved);
+                ui.reloadSlideShowPane(slideShow);
+                ui.textField.clear();
+                
+                // TELL THE USER THE SLIDE SHOW HAS BEEN CREATED
+                // @todo
+            }
+        } catch (IOException ioe) {
+            ErrorHandler eH = ui.getErrorHandler();
+            // @todo provide error message
+            
+                    
+        }
+    }
+    
+    
+    public void handleSlideShowViewRequest(){
+        try {
+            // WE MAY HAVE TO SAVE CURRENT WORK
+            boolean continueToView = true;
+            if (!saved) {
+                // THE USER CAN OPT OUT HERE WITH A CANCEL
+                continueToView = promptToSave();
+            }
 
+            // IF THE USER REALLY WANTS TO MAKE A NEW COURSE
+            if (continueToView) {
+                // RESET THE DATA, WHICH SHOULD TRIGGER A RESET OF THE UI
+                SlideShowModel slideShow = ui.getSlideShow();
+                ui.slideShowView();
+                saved = false;
+                   markAsEdited();
+                // REFRESH THE GUI, WHICH WILL ENABLE AND DISABLE
+                // THE APPROPRIATE CONTROLS
+                ui.updateToolbarControls(saved);
+                    
                 // TELL THE USER THE SLIDE SHOW HAS BEEN CREATED
                 // @todo
             }
@@ -76,6 +122,11 @@ public class FileController {
             // @todo provide error message
         }
     }
+    
+    
+    
+    
+    
 
     /**
      * This method lets the user open a slideshow saved to a file. It will also
@@ -88,6 +139,7 @@ public class FileController {
             if (!saved) {
                 // THE USER CAN OPT OUT HERE WITH A CANCEL
                 continueToOpen = promptToSave();
+               
             }
 
             // IF THE USER REALLY WANTS TO OPEN A POSE
@@ -95,6 +147,7 @@ public class FileController {
                 // GO AHEAD AND PROCEED MAKING A NEW POSE
                 promptToOpen();
             }
+       
         } catch (IOException ioe) {
             ErrorHandler eH = ui.getErrorHandler();
             //@todo provide error message
@@ -105,11 +158,12 @@ public class FileController {
      * This method will save the current slideshow to a file. Note that we already
      * know the name of the file, so we won't need to prompt the user.
      */
-    public boolean handleSaveSlideShowRequest() {
+    public void handleSaveSlideShowRequest() {
         try {
 	    // GET THE SLIDE SHOW TO SAVE
 	    SlideShowModel slideShowToSave = ui.getSlideShow();
-	    
+            
+	    slideShowToSave.setTitle(slideShowToSave.getTitle());
             // SAVE IT TO A FILE
             slideShowIO.saveSlideShow(slideShowToSave);
 
@@ -119,11 +173,11 @@ public class FileController {
             // AND REFRESH THE GUI, WHICH WILL ENABLE AND DISABLE
             // THE APPROPRIATE CONTROLS
             ui.updateToolbarControls(saved);
-	    return true;
+	    
         } catch (IOException ioe) {
             ErrorHandler eH = ui.getErrorHandler();
             // @todo
-	    return false;
+	   
         }
     }
 
@@ -139,7 +193,7 @@ public class FileController {
                 // THE USER CAN OPT OUT HERE
                 continueToExit = promptToSave();
             }
-
+            markAsEdited();
             // IF THE USER REALLY WANTS TO EXIT THE APP
             if (continueToExit) {
                 // EXIT THE APPLICATION
@@ -168,8 +222,19 @@ public class FileController {
      */
     private boolean promptToSave() throws IOException {
         // PROMPT THE USER TO SAVE UNSAVED WORK
-        boolean saveWork = true; // @todo change this to prompt
+       boolean saveWork = false;
+       TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Save Input");
+        dialog.setHeaderText("Do you wanna save your work first!!");
+        dialog.setContentText("The name of your file:");
 
+// Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+             saveWork = true;
+            }
+        
+        
         // IF THE USER SAID YES, THEN SAVE BEFORE MOVING ON
         if (saveWork) {
             SlideShowModel slideShow = ui.getSlideShow();
@@ -205,6 +270,7 @@ public class FileController {
 		SlideShowModel slideShowToLoad = ui.getSlideShow();
                 slideShowIO.loadSlideShow(slideShowToLoad, selectedFile.getAbsolutePath());
                 ui.reloadSlideShowPane(slideShowToLoad);
+                SlideShowMakerView.textField.setText(slideShowToLoad.getTitle());
                 saved = true;
                 ui.updateToolbarControls(saved);
             } catch (Exception e) {
@@ -234,5 +300,7 @@ public class FileController {
     public boolean isSaved() {
         return saved;
     }
+
+   
 }
 

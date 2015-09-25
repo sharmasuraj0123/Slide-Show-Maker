@@ -6,46 +6,46 @@
 -->
 <properties>
     <property_list>    
-        <property name="TITLE_WINDOW"		value="Slide Showsssss I ROCK Maker"></property>  
+        <property name="TITLE_WINDOW"		value="Slide Show Maker"></property>  
         
         <!-- PROGRAM ICON FILES -->
 	
         <!-- TOOLTIPS FOR BUTTONS -->
-        <property name="TOOLTIP_NEW_SLIDE_SHOW"	    value="Create a New Slide Show"></property>
-        <property name="TOOLTIP_LOAD_SLIDE_SHOW"    value="Load an Existing Slide Show"></property>
-        <property name="TOOLTIP_SAVE_SLIDE_SHOW"    value="Save this Slide Show"></property>
-        <property name="TOOLTIP_VIEW_SLIDE_SHOW"    value="View this Slide Show"></property>
-        <property name="TOOLTIP_EXIT"		    value="Exit the Application"></property>
-	<property name="TOOLTIP_ADD_SLIDE"	    value="Add Slide"></property>
-	<property name="TOOLTIP_REMOVE_SLIDE"	    value="Remove Slide"></property>
-	<property name="TOOLTIP_MOVE_UP"	    value="Move Slide Up"></property>
-	<property name="TOOLTIP_MOVE_DOWN"	    value="Move Slide Down"></property>
-	<property name="TOOLTIP_PREVIOUS_SLIDE"	    value="Previous Slide"></property>
-	<property name="TOOLTIP_NEXT_SLIDE"	    value="Next Slide"></property>
+        <property name="TOOLTIP_NEW_SLIDE_SHOW"	    value="Créer un nouveau diaporama"></property>
+        <property name="TOOLTIP_LOAD_SLIDE_SHOW"    value="Charger un diaporama existant"></property>
+        <property name="TOOLTIP_SAVE_SLIDE_SHOW"    value="Enregistrer ce diaporama"></property>
+        <property name="TOOLTIP_VIEW_SLIDE_SHOW"    value="Voir ce diaporama"></property>
+        <property name="TOOLTIP_EXIT"		    value="Quittez l'application"></property>
+	<property name="TOOLTIP_ADD_SLIDE"	    value="Ajouter diapo"></property>
+	<property name="TOOLTIP_REMOVE_SLIDE"	    value="Retirer le diaporama"></property>
+	<property name="TOOLTIP_MOVE_UP"	    value="Déplacer Slide Up"></property>
+	<property name="TOOLTIP_MOVE_DOWN"	    value="Déplacer glisser vers le bas"></property>
+	<property name="TOOLTIP_PREVIOUS_SLIDE"	    value="Diapositive précédente"></property>
+	<property name="TOOLTIP_NEXT_SLIDE"	    value="Diapositive suivante"></property>
 	
 	<!-- DEFAULT VALUES -->
-	<property name="DEFAULT_IMAGE_CAPTION"	    value="ENTER CAPTION"></property>
-	<property name="DEFAULT_SLIDE_SHOW_TITLE"   value="ENTER TITLE"></property>
+	<property name="DEFAULT_IMAGE_CAPTION"	    value="ENTRER LÉGENDE"></property>
+	<property name="DEFAULT_SLIDE_SHOW_TITLE"   value="ENTRER TITRE"></property>
 	
 	<!-- UI LABELS -->
-	<property name="LABEL_CAPTION"		    value="Caption:"></property>
+	<property name="LABEL_CAPTION"		    value="Légende:"></property>
         
         <!-- GUI LABELS -->
-        <property name="COURSE_HEADING_LABEL"           value="Course Site Details"></property>
-        <property name="COURSE_INFO_LABEL"              value="Course Information"></property>
-        <property name="COURSE_SUBJECT_LABEL"           value="Subject:"></property>
-        <property name="COURSE_NUMBER_LABEL"            value="Number:"></property>
-        <property name="COURSE_SEMESTER_LABEL"          value="Semester:"></property>
-        <property name="COURSE_YEAR_LABEL"              value="Year:"></property>
+        <property name="COURSE_HEADING_LABEL"           value="Cours Détails Site"></property>
+        <property name="COURSE_INFO_LABEL"              value="Informations sur les cours"></property>
+        <property name="COURSE_SUBJECT_LABEL"           value="objet:"></property>
+        <property name="COURSE_NUMBER_LABEL"            value="Nombre:"></property>
+        <property name="COURSE_SEMESTER_LABEL"          value="Semestre:"></property>
+        <property name="COURSE_YEAR_LABEL"              value="An:"></property>
         <property name="COURSE_TITLE_LABEL"             value="Title:"></property>
-        <property name="INSTRUCTOR_NAME_LABEL"          value="Instrctor Name:"></property>
+        <property name="INSTRUCTOR_NAME_LABEL"          value="Instrctor Nom :"></property>
         <property name="INSTRUCTOR_URL_LABEL"           value="Instructor Homepage:"></property>
-        <property name="PAGES_SELECTION_HEADING_LABEL"  value="Site Pages"></property>
-        <property name="SCHEDULE_HEADING_LABEL"         value="Course Schedule"></property>
+        <property name="PAGES_SELECTION_HEADING_LABEL"  value="Pages du site"></property>
+        <property name="SCHEDULE_HEADING_LABEL"         value="Horaire des cours"></property>
         <property name="DATE_BOUNDARIES_LABEL"          value="Semester Dates"></property>
-        <property name="STARTING_MONDAY_LABEL"          value="Starting Monday:"></property>
-        <property name="ENDING_FRIDAY_LABEL"            value="Ending Friday:"></property>
-        <property name="LECTURE_DAY_SELECT_LABEL"       value="Lecture Days"></property>
+        <property name="STARTING_MONDAY_LABEL"          value="À partir de lundi :"></property>
+        <property name="ENDING_FRIDAY_LABEL"            value="Fin Vendredi:"></property>
+        <property name="LECTURE_DAY_SELECT_LABEL"       value="Jours de cours"></property>
     </property_list>
     <property_options_list>
     </property_options_list>

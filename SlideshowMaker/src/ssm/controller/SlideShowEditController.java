@@ -11,7 +11,7 @@ import ssm.view.SlideShowMakerView;
  * This controller provides responses for the slideshow edit toolbar,
  * which allows the user to add, remove, and reorder slides.
  * 
- * @author McKilla Gorilla & _____________
+ * @author McKilla Gorilla & Suraj Sharma
  */
 public class SlideShowEditController {
     // APP UI
@@ -29,8 +29,28 @@ public class SlideShowEditController {
      * slide to the slide show.
      */
     public void processAddSlideRequest() {
+        ui.updateToolbarControls(false);
 	SlideShowModel slideShow = ui.getSlideShow();
 	PropertiesManager props = PropertiesManager.getPropertiesManager();
-	slideShow.addSlide(DEFAULT_SLIDE_IMAGE, PATH_SLIDE_SHOW_IMAGES);
+	slideShow.addSlide(DEFAULT_SLIDE_IMAGE, PATH_SLIDE_SHOW_IMAGES , " ");
+    }
+    
+    public void processRemoveSlideRequest(){
+        ui.updateToolbarControls(false);
+        SlideShowModel slideShow = ui.getSlideShow();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        slideShow.removeSlide(ui.getSlideShow().getSelectedSlide());
+    }
+    public void processMoveUpSlideRequest(){
+        ui.updateToolbarControls(false);
+        SlideShowModel slideShow = ui.getSlideShow();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        slideShow.moveUp(ui.getSlideShow().getSelectedSlide());
+    }
+    public void processMoveDownSlideRequest(){
+        ui.updateToolbarControls(false);
+        SlideShowModel slideShow = ui.getSlideShow();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        slideShow.moveDown(ui.getSlideShow().getSelectedSlide());
     }
 }

@@ -2,6 +2,7 @@ package ssm.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.effect.SepiaTone;
 import properties_manager.PropertiesManager;
 import ssm.LanguagePropertyType;
 import ssm.view.SlideShowMakerView;
@@ -9,7 +10,7 @@ import ssm.view.SlideShowMakerView;
 /**
  * This class manages all the data associated with a slideshow.
  * 
- * @author McKilla Gorilla & _____________
+ * @author McKilla Gorilla & Suraj Sharma
  */
 public class SlideShowModel {
     SlideShowMakerView ui;
@@ -48,6 +49,18 @@ public class SlideShowModel {
     public void setTitle(String initTitle) { 
 	title = initTitle; 
     }
+    
+    public Slide getNext(){
+        if(slides.indexOf(selectedSlide) != slides.size()-1)
+        selectedSlide= slides.get(slides.indexOf(selectedSlide)+1);
+        return selectedSlide;
+    }
+    
+    public Slide getPrev(){
+        if(slides.indexOf(selectedSlide) !=0)
+        selectedSlide = slides.get(slides.indexOf(selectedSlide)-1);
+        return selectedSlide;
+    }
 
     // SERVICE METHODS
     
@@ -67,10 +80,42 @@ public class SlideShowModel {
      * @param initImagePath File path for the slide image to add.
      */
     public void addSlide(   String initImageFileName,
-			    String initImagePath) {
-	Slide slideToAdd = new Slide(initImageFileName, initImagePath);
+			    String initImagePath , String initCaption) {
+	Slide slideToAdd = new Slide(initImageFileName, initImagePath , initCaption);
 	slides.add(slideToAdd);
 	selectedSlide = slideToAdd;
 	ui.reloadSlideShowPane(this);
     }
+    
+    public void removeSlide( Slide selectedSlide) {
+	slides.remove(selectedSlide);
+	ui.reloadSlideShowPane(this);
+    }
+    
+    public void moveUp(Slide selectedSlide){
+        if(selectedSlide ==slides.get(0))
+        return;
+        
+        
+        int index = slides.indexOf(selectedSlide);
+       Slide temp =  slides.remove(index);
+       slides.add(--index,temp);
+        
+        ui.reloadSlideShowPane(this);
+    }
+    
+    public void moveDown(Slide selectedSlide){
+        
+        if(selectedSlide ==slides.get(slides.size()-1))
+        return;
+        
+        int index = slides.indexOf(selectedSlide);
+       Slide temp =  slides.remove(index);
+       slides.add(++index,temp);
+        
+        ui.reloadSlideShowPane(this);
+    }
+    
+    
+    
 }

@@ -1,13 +1,12 @@
 package ssm;
 
 import ssm.view.SlideShowMakerView;
-import static ssm.view.SlideShowMakerView.lang;
 
 /**
  * This class provides setup constants for initializing the application
  * that are NOT language dependent.
  * 
- * @author McKilla Gorilla & _____________
+ * @author McKilla Gorilla & Suraj Sharma
  */
 public class StartupConstants {
 
