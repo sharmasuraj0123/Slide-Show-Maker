@@ -3,7 +3,9 @@ package ssm.controller;
 import java.io.File;
 import javafx.scene.effect.SepiaTone;
 import javafx.stage.FileChooser;
+import ssm.LanguagePropertyType;
 import static ssm.StartupConstants.PATH_SLIDE_SHOW_IMAGES;
+import ssm.error.ErrorHandler;
 import ssm.model.Slide;
 import ssm.view.SlideEditView;
 
@@ -50,12 +52,10 @@ public class ImageSelectionController {
 	    String path = file.getPath().substring(0, file.getPath().indexOf(file.getName()));
 	    String fileName = file.getName();
 	    slideToEdit.setImage(path, fileName);
- //         sepiaTone.setLevel(0.0);
-//           view.setEffect(sepiaTone);
 	    view.updateSlideImage();
 	}	    
 	else {
-	    // @todo provide error message for no files selected
+	    
 	}
     }
 }
