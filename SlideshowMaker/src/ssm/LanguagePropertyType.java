@@ -4,13 +4,12 @@ package ssm;
  * This class provides the types that will be need to be loaded from
  * language-dependent XML files.
  * 
- * @author McKilla Gorilla & Suraj Sharma
+ * @author McKilla Gorilla & _____________
  */
 public enum LanguagePropertyType {
     // TITLE FOR WINDOW TITLE BAR
     // TITLE FOR WINDOW TITLE BAR
     TITLE_WINDOW,
-    TITLE,
     
     // APPLICATION TOOLTIPS FOR BUTTONS
     TOOLTIP_NEW_SLIDE_SHOW,
@@ -31,14 +30,13 @@ public enum LanguagePropertyType {
     
     // UI LABELS
     LABEL_CAPTION,
+    LABEL_SLIDESHOW_TITLE,
       
     /* THESE ARE FOR LANGUAGE-DEPENDENT ERROR HANDLING,
      LIKE FOR TEXT PUT INTO DIALOG BOXES TO NOTIFY
      THE USER WHEN AN ERROR HAS OCCURED */
     ERROR_DATA_FILE_LOADING,
     ERROR_PROPERTIES_FILE_LOADING,
-    
-    ERROR_HEADER,
-    ERROR_MESSAGE
-    
+    ERROR_NO_SLIDESHOW_IMAGES,
+    ERROR_UNEXPECTED
 }
