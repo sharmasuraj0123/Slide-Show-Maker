@@ -1,20 +1,21 @@
 package ssm;
 
-import java.util.Optional;
+import java.io.File;
+import java.net.URL;
 import javafx.application.Application;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import xml_utilities.InvalidXMLFileFormatException;
 import properties_manager.PropertiesManager;
 import static ssm.LanguagePropertyType.TITLE_WINDOW;
+import static ssm.StartupConstants.FINNISH_LANG;
+import static ssm.StartupConstants.ICON_WINDOW_LOGO;
 import static ssm.StartupConstants.PATH_DATA;
+import static ssm.StartupConstants.PATH_IMAGES;
 import static ssm.StartupConstants.PROPERTIES_SCHEMA_FILE_NAME;
-import static ssm.StartupConstants.UI_PROPERTIES_FILE_NAME;
 import ssm.error.ErrorHandler;
 import ssm.file.SlideShowFileManager;
+import ssm.view.LanguageSelectionDialog;
 import ssm.view.SlideShowMakerView;
 
 /**
@@ -22,15 +23,11 @@ import ssm.view.SlideShowMakerView;
  * the user to name their slideshow, select images to use, select captions for
  * the images, and the order of appearance for slides.
  *
- * @author McKilla Gorilla & Suraj Sharma
+ * @author McKilla Gorilla & _____________
  */
 public class SlideShowMaker extends Application {
     // THIS WILL PERFORM SLIDESHOW READING AND WRITING
-            
-        
-                
-
-        SlideShowFileManager fileManager = new SlideShowFileManager();
+    SlideShowFileManager fileManager = new SlideShowFileManager();
 
     // THIS HAS THE FULL USER INTERFACE AND ONCE IN EVENT
     // HANDLING MODE, BASICALLY IT BECOMES THE FOCAL
@@ -39,31 +36,27 @@ public class SlideShowMaker extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+	// GET THE USER SELECTED LANGUAGE
+	LanguageSelectionDialog langDialog = new LanguageSelectionDialog();
+	langDialog.showAndWait();
+	
+	String language = langDialog.getSelectedLanguage();
+	String languageCode = "EN";
+	if (language.equals(FINNISH_LANG)) {
+	    languageCode = "FI";
+	}
+	
+	// SET THE WINDOW ICON
+	String imagePath = PATH_IMAGES + ICON_WINDOW_LOGO;
+	File file = new File(imagePath);
+	
+	// GET AND SET THE IMAGE
+	URL fileURL = file.toURI().toURL();
+	Image windowIcon = new Image(fileURL.toExternalForm());
+	primaryStage.getIcons().add(windowIcon);
+	
         // LOAD APP SETTINGS INTO THE GUI AND START IT UP
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Language");
-        alert.setHeaderText("Please Slect a Language");
-        alert.setContentText("Your Choice:");
-        ButtonType buttonTypeOne = new ButtonType("English");
-        ButtonType buttonTypeTwo = new ButtonType("French");
-        ButtonType buttonTypeThree = new ButtonType("Three");
-        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree, buttonTypeCancel);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne){
-            StartupConstants.UI_PROPERTIES_FILE_NAME = "properties_EN.xml";
-        } else if (result.get() == buttonTypeTwo) {
-              StartupConstants.UI_PROPERTIES_FILE_NAME = "properties_FR.xml";
-        }else if (result.get() == buttonTypeThree) {
-    // ... user chose "Three"
-        } else {
-    // ... user chose CANCEL or closed the dialog
-        }
-        
-        
-        boolean success = loadProperties();
+        boolean success = loadProperties(languageCode);
         if (success) {
             PropertiesManager props = PropertiesManager.getPropertiesManager();
             String appTitle = props.getProperty(TITLE_WINDOW);
@@ -74,7 +67,7 @@ public class SlideShowMaker extends Application {
 	else {
 	    // LET THE ERROR HANDLER PROVIDE THE RESPONSE
 	    ErrorHandler errorHandler = ui.getErrorHandler();
-	    errorHandler.processError(LanguagePropertyType.ERROR_DATA_FILE_LOADING, "todo", "todo");
+	    errorHandler.processError(LanguagePropertyType.ERROR_DATA_FILE_LOADING);
 	    System.exit(0);
 	}
     }
@@ -85,17 +78,20 @@ public class SlideShowMaker extends Application {
      * 
      * @return true if the properties file was loaded successfully, false otherwise.
      */
-    public boolean loadProperties() {
+    public boolean loadProperties(String languageCode) {
         try {
-            // LOAD THE SETTINGS FOR STARTING THE APP
+	    // FIGURE OUT THE PROPER FILE NAME
+	    String propertiesFileName = "properties_" + languageCode + ".xml";
+
+	    // LOAD THE SETTINGS FOR STARTING THE APP
             PropertiesManager props = PropertiesManager.getPropertiesManager();
             props.addProperty(PropertiesManager.DATA_PATH_PROPERTY, PATH_DATA);
-	    props.loadProperties(UI_PROPERTIES_FILE_NAME, PROPERTIES_SCHEMA_FILE_NAME);
+	    props.loadProperties(propertiesFileName, PROPERTIES_SCHEMA_FILE_NAME);
             return true;
        } catch (InvalidXMLFileFormatException ixmlffe) {
             // SOMETHING WENT WRONG INITIALIZING THE XML FILE
             ErrorHandler eH = ui.getErrorHandler();
-            eH.processError(LanguagePropertyType.ERROR_PROPERTIES_FILE_LOADING, "todo", "todo");
+            eH.processError(LanguagePropertyType.ERROR_PROPERTIES_FILE_LOADING);
             return false;
         }        
     }
