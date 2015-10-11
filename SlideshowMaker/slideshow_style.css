@@ -1,0 +1,29 @@
+#header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+#section {
+    width:350px;
+    float:center;
+    text-align:center;
+    padding:10px;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(130%, 0%)
+}
+#image {
+    width:350px;
+    float:center;
+    text-align:center;
+    padding:10px;	 	 
+}
+#footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+   padding:5px;	 	 
+}

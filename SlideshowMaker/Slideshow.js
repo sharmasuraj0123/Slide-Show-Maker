@@ -13,6 +13,8 @@ var obj;
 var x
 
  var count = 0;
+ 
+ var play = false;
 
 $.getJSON(url, function(data) {
  obj = data;
@@ -26,6 +28,7 @@ obj.slides[0].caption;
 
 document.getElementById("next").addEventListener("click", next);
 document.getElementById("prev").addEventListener("click", prev);
+document.getElementById("show").addEventListener("click", show);
 
 
 function next(){
@@ -51,6 +54,14 @@ function prev(){
   
   document.getElementById("boss").innerHTML =
   obj.slides[count].caption;
+}
+
+function show(){
+    //play = !(play);
+    
+    var next= "next()";
+        setTimeout(next, 3000);
+        show();
 }
 
 

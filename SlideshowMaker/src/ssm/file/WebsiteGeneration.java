@@ -177,6 +177,36 @@ public class WebsiteGeneration {
         } 
             
             
+         // For creating a new CSS file
+            
+              try{   
+            
+            InputStream inStream_css = null;
+            OutputStream outStream_css = null;
+    	    File original_css =new File("./slideshow_style.css");
+    	    File new_css =new File(Paths.get(path) + "/css/slideshow_style.css");
+    		
+    	    inStream_css = new FileInputStream(original_css);
+    	    outStream_css= new FileOutputStream(new_css);
+        	
+    	    byte[] buffer = new byte[1024];
+    		
+    	    int length;
+    	    //copy the file content in bytes 
+    	    while ((length = inStream_css.read(buffer)) > 0){
+    	  
+    	    	outStream_css.write(buffer, 0, length);
+    	 
+    	    }
+    	 
+    	    inStream_css.close();
+    	    outStream_css.close();
+    	   
+    	    System.out.println("File is copied successful!");
+    	    
+    	}catch(IOException e){
+    	    e.printStackTrace();
+        } 
             
             
             

@@ -3,22 +3,27 @@
     "slides":[
         {
             "image_file_name":"DefaultStartSlide.png",
-            "image_path":"./images/slide_show_images/",
+            "image_path":"sites/ENTER TITLE/img/DefaultStartSlide.png",
             "caption":"ENTER CAPTION"
         },
         {
             "image_file_name":"DefaultStartSlide.png",
-            "image_path":"./images/slide_show_images/",
+            "image_path":"sites/ENTER TITLE/img/DefaultStartSlide.png",
             "caption":"ENTER CAPTION"
         },
         {
             "image_file_name":"DefaultStartSlide.png",
-            "image_path":"./images/slide_show_images/",
+            "image_path":"sites/ENTER TITLE/img/DefaultStartSlide.png",
             "caption":"ENTER CAPTION"
         },
         {
             "image_file_name":"DefaultStartSlide.png",
-            "image_path":"./images/slide_show_images/",
+            "image_path":"sites/ENTER TITLE/img/DefaultStartSlide.png",
+            "caption":"ENTER CAPTION"
+        },
+        {
+            "image_file_name":"DefaultStartSlide.png",
+            "image_path":"sites/ENTER TITLE/img/DefaultStartSlide.png",
             "caption":"ENTER CAPTION"
         }
     ]
