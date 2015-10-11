@@ -12,26 +12,49 @@ var url = "./slideshow.json";
 var obj;
 var x
 
+ var count = 0;
+
 $.getJSON(url, function(data) {
- x = data;
+ obj = data;
+
+document.getElementById("image").src = obj.slides[count].image_path;
+
 
 document.getElementById("boss").innerHTML =
-x.slides[0].caption + " " + x.slides[0].caption;
+obj.slides[0].caption;
+
+
+document.getElementById("next").addEventListener("click", next);
+document.getElementById("prev").addEventListener("click", prev);
+
+
+function next(){
+   count++;
+   
+   if(count >= obj.slides.length)
+       count =0;
+
+     document.getElementById("image").src = obj.slides[count].image_path;;
+  
+  //show_image(obj.slides[count].image_path, 400, 400);
+  document.getElementById("boss").innerHTML =
+  obj.slides[count].caption;
+}
+
+function prev(){
+   count--;
+   if(count < 0)
+       count =obj.slides.length-1;
+  
+  
+  document.getElementById("image").src = obj.slides[count].image_path;
+  
+  document.getElementById("boss").innerHTML =
+  obj.slides[count].caption;
+}
+
+
 });
 
 
 
-
-
-
-function show_image(src, width, height) {
-    var img = document.createElement("img");
-    img.src = src;
-    img.width = width;
-    img.height = height;
-    
-   
-
-    // This next line will just add it to the <body> tag
-    document.body.appendChild(img);
-}
