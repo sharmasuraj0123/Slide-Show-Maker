@@ -29,28 +29,37 @@ public class SlideShowEditController {
      * slide to the slide show.
      */
     public void processAddSlideRequest() {
-        ui.updateToolbarControls(false);
 	SlideShowModel slideShow = ui.getSlideShow();
 	PropertiesManager props = PropertiesManager.getPropertiesManager();
-	slideShow.addSlide(DEFAULT_SLIDE_IMAGE, PATH_SLIDE_SHOW_IMAGES , " ");
+	slideShow.addSlide(DEFAULT_SLIDE_IMAGE, PATH_SLIDE_SHOW_IMAGES, props.getProperty(DEFAULT_IMAGE_CAPTION));
     }
-    
-    public void processRemoveSlideRequest(){
-        ui.updateToolbarControls(false);
-        SlideShowModel slideShow = ui.getSlideShow();
-        PropertiesManager props = PropertiesManager.getPropertiesManager();
-        slideShow.removeSlide(ui.getSlideShow().getSelectedSlide());
+
+    /**
+     * Provides a response for when the user has selected a slide
+     * and wishes to remove it from the slide show.
+     */
+    public void processRemoveSlideRequest() {
+	SlideShowModel slideShow = ui.getSlideShow();
+	slideShow.removeSelectedSlide();
+	ui.reloadSlideShowPane();
     }
-    public void processMoveUpSlideRequest(){
-        ui.updateToolbarControls(false);
-        SlideShowModel slideShow = ui.getSlideShow();
-        PropertiesManager props = PropertiesManager.getPropertiesManager();
-        slideShow.moveUp(ui.getSlideShow().getSelectedSlide());
+
+    /**
+     * Provides a response for when the user has selected a slide
+     * and wishes to move it up in the slide show.
+     */
+    public void processMoveSlideUpRequest() {
+	SlideShowModel slideShow = ui.getSlideShow();
+	slideShow.moveSelectedSlideUp();	
+	
     }
-    public void processMoveDownSlideRequest(){
-        ui.updateToolbarControls(false);
-        SlideShowModel slideShow = ui.getSlideShow();
-        PropertiesManager props = PropertiesManager.getPropertiesManager();
-        slideShow.moveDown(ui.getSlideShow().getSelectedSlide());
+
+    /**
+     * Provides a response for when the user has selected a slide
+     * and wises to move it down in the slide show.
+     */
+    public void processMoveSlideDownRequest() {
+	SlideShowModel slideShow = ui.getSlideShow();
+	slideShow.moveSelectedSlideDown();	
     }
 }

@@ -1,5 +1,7 @@
 package ssm.error;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import properties_manager.PropertiesManager;
 import ssm.LanguagePropertyType;
 import ssm.view.SlideShowMakerView;
@@ -10,7 +12,7 @@ import ssm.view.SlideShowMakerView;
  * and should have custom messages that are different depending on
  * the type of error so as to be informative concerning what went wrong.
  * 
- * @author McKilla Gorilla & Suraj Sharma
+ * @author McKilla Gorilla & _____________
  */
 public class ErrorHandler {
     // APP UI
@@ -29,13 +31,14 @@ public class ErrorHandler {
      * @param errorType Identifies the type of error that happened, which
      * allows us to get and display different text for different errors.
      */
-    public void processError(LanguagePropertyType errorType, String errorDialogTitle, String errorDialogMessage)
+    public void processError(LanguagePropertyType errorType)
     {
         // GET THE FEEDBACK TEXT
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         String errorFeedbackText = props.getProperty(errorType);
              
         // POP OPEN A DIALOG TO DISPLAY TO THE USER
-        // @todo
+        Alert alertDialog = new Alert(AlertType.WARNING, errorFeedbackText);
+	alertDialog.showAndWait();
     }    
 }

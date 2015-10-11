@@ -1,1 +1,26 @@
-{"title":"hello","slides":[{"image_file_name":"CapeSpearNewfoundland.jpg","image_path":"/Users/Sushi/NetBeansProjects/SharmaSurajHW2/SlideshowMaker/images/slide_show_images/","captions":" hi"}]}
+
+{
+    "title":"hello",
+    "slides":[
+        {
+            "image_file_name":"DefaultStartSlide.png",
+            "image_path":"./images/slide_show_images/",
+            "caption":"ENTER CAPTION"
+        },
+        {
+            "image_file_name":"DefaultStartSlide.png",
+            "image_path":"./images/slide_show_images/",
+            "caption":"ENTER CAPTION"
+        },
+        {
+            "image_file_name":"DefaultStartSlide.png",
+            "image_path":"./images/slide_show_images/",
+            "caption":"ENTER CAPTION"
+        },
+        {
+            "image_file_name":"DefaultStartSlide.png",
+            "image_path":"./images/slide_show_images/",
+            "caption":"ENTER CAPTION"
+        }
+    ]
+}

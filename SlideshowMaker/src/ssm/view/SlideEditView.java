@@ -4,7 +4,6 @@ import java.io.File;
 import java.net.URL;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -14,9 +13,9 @@ import ssm.LanguagePropertyType;
 import static ssm.StartupConstants.CSS_CLASS_SLIDE_EDIT_VIEW;
 import static ssm.StartupConstants.DEFAULT_THUMBNAIL_WIDTH;
 import ssm.controller.ImageSelectionController;
+import ssm.error.ErrorHandler;
 import ssm.model.Slide;
 import static ssm.file.SlideShowFileManager.SLASH;
-import ssm.model.SlideShowModel;
 
 /**
  * This UI component has the controls for editing a single slide
@@ -26,11 +25,6 @@ import ssm.model.SlideShowModel;
  * @author McKilla Gorilla & Suraj Sharma
  */
 public class SlideEditView extends HBox {
-    
-     // An instance variable to take care of previously selected class
-    public static int unselect=0;
-    
-    
     // SLIDE THIS COMPONENT EDITS
     Slide slide;
     
@@ -44,10 +38,6 @@ public class SlideEditView extends HBox {
     
     // PROVIDES RESPONSES FOR IMAGE SELECTION
     ImageSelectionController imageController;
-    SlideShowModel selection ;
-
-    //Updating the UI
-    SlideShowMakerView ui;
 
     /**
      * THis constructor initializes the full UI for this component, using
@@ -55,14 +45,10 @@ public class SlideEditView extends HBox {
      * 
      * @param initSlide The slide to be edited by this component.
      */
-    public SlideEditView(Slide initSlide , SlideShowMakerView initUi) {
+    public SlideEditView(Slide initSlide) {
 	// FIRST SELECT THE CSS STYLE CLASS FOR THIS CONTAINER
 	this.getStyleClass().add(CSS_CLASS_SLIDE_EDIT_VIEW);
-	 ui = initUi;
-        
-         
-         
-       
+	
 	// KEEP THE SLIDE FOR LATER
 	slide = initSlide;
 	
@@ -75,15 +61,10 @@ public class SlideEditView extends HBox {
 	PropertiesManager props = PropertiesManager.getPropertiesManager();
 	captionLabel = new Label(props.getProperty(LanguagePropertyType.LABEL_CAPTION));
 	captionTextField = new TextField();
-        if(!slide.getCaption().equals(null)) 
-              captionTextField.setText(slide.getCaption());
-        captionTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-                slide.setCaption(newValue);
-});
-       
+	captionTextField.setText(slide.getCaption());
 	captionVBox.getChildren().add(captionLabel);
 	captionVBox.getChildren().add(captionTextField);
-        
+
 	// LAY EVERYTHING OUT INSIDE THIS COMPONENT
 	getChildren().add(imageSelectionView);
 	getChildren().add(captionVBox);
@@ -91,34 +72,12 @@ public class SlideEditView extends HBox {
 	// SETUP THE EVENT HANDLERS
 	imageController = new ImageSelectionController();
 	imageSelectionView.setOnMousePressed(e -> {
-             //selection.setSelectedSlide(initSlide);
 	    imageController.processSelectImage(slide, this);
-            slide.setImageFileName(slide.getImageFileName());
-            slide.setImagePath(slide.getImagePath());
-            slide.setCaption(slide.getCaption());
-            
 	});
-     
-        this.setOnMouseClicked( e->{
-            
-
-             if(initSlide.equals(ui.getSlideShow().getSelectedSlide()))
-                 ui.getSlideShow().setSelectedSlide(null);    
-            else    
-           ui.getSlideShow().setSelectedSlide(initSlide);
-             
-        ui.reloadSlideShowPane(ui.getSlideShow());
-               
-    });
-        
-    }
-
-    public SlideShowMakerView getUi() {
-        return ui;
-    }
-
-    public void setUi(SlideShowMakerView ui) {
-        this.ui = ui;
+	captionTextField.textProperty().addListener(e -> {
+	    String text = captionTextField.getText();
+	    slide.setCaption(text);	    
+	});
     }
     
     /**
@@ -141,7 +100,8 @@ public class SlideEditView extends HBox {
 	    imageSelectionView.setFitWidth(scaledWidth);
 	    imageSelectionView.setFitHeight(scaledHeight);
 	} catch (Exception e) {
-	    // @todo - use Error handler to respond to missing image
+	    ErrorHandler eH = new ErrorHandler(null);
+            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
 	}
     }    
 }

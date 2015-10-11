@@ -1,11 +1,8 @@
 package ssm.controller;
 
 import java.io.File;
-import javafx.scene.effect.SepiaTone;
 import javafx.stage.FileChooser;
-import ssm.LanguagePropertyType;
 import static ssm.StartupConstants.PATH_SLIDE_SHOW_IMAGES;
-import ssm.error.ErrorHandler;
 import ssm.model.Slide;
 import ssm.view.SlideEditView;
 
@@ -16,7 +13,7 @@ import ssm.view.SlideEditView;
  * @author McKilla Gorilla & Suraj Sharma
  */
 public class ImageSelectionController {
-   
+    
     /**
      * Default contstructor doesn't need to initialize anything
      */
@@ -33,8 +30,7 @@ public class ImageSelectionController {
      */
     public void processSelectImage(Slide slideToEdit, SlideEditView view) {
 	FileChooser imageFileChooser = new FileChooser();
-
-        
+	
 	// SET THE STARTING DIRECTORY
 	imageFileChooser.setInitialDirectory(new File(PATH_SLIDE_SHOW_IMAGES));
 	
@@ -44,8 +40,6 @@ public class ImageSelectionController {
 	FileChooser.ExtensionFilter gifFilter = new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.GIF");
 	imageFileChooser.getExtensionFilters().addAll(jpgFilter, pngFilter, gifFilter);
 	
-        
-        
 	// LET'S OPEN THE FILE CHOOSER
 	File file = imageFileChooser.showOpenDialog(null);
 	if (file != null) {
@@ -53,9 +47,6 @@ public class ImageSelectionController {
 	    String fileName = file.getName();
 	    slideToEdit.setImage(path, fileName);
 	    view.updateSlideImage();
-	}	    
-	else {
-	    
 	}
     }
 }

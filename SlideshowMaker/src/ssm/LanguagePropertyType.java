@@ -23,6 +23,7 @@ public enum LanguagePropertyType {
     TOOLTIP_MOVE_DOWN,
     TOOLTIP_PREVIOUS_SLIDE,
     TOOLTIP_NEXT_SLIDE,
+  
     
     // DEFAULT VALUES
     DEFAULT_IMAGE_CAPTION,

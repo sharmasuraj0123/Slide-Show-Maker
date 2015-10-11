@@ -2,25 +2,23 @@ package ssm.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.text.Text;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import ssm.LanguagePropertyType;
 import ssm.model.SlideShowModel;
 import ssm.error.ErrorHandler;
 import ssm.file.SlideShowFileManager;
 import ssm.view.SlideShowMakerView;
 import static ssm.StartupConstants.PATH_SLIDE_SHOWS;
-import ssm.model.Slide;
-import static ssm.view.SlideShowMakerView.textField;
+import ssm.file.WebsiteGeneration;
+import ssm.view.SlideShowViewer;
+import ssm.view.SlideShowWebView;
 /**
  * This class serves as the controller for all file toolbar operations,
  * driving the loading and saving of slide shows, among other things.
  * 
- * @author McKilla Gorilla & Suraj Sharma
+ * @author McKilla Gorilla & _____________
  */
 public class FileController {
 
@@ -32,7 +30,6 @@ public class FileController {
     
     // THIS GUY KNOWS HOW TO READ AND WRITE SLIDE SHOW DATA
     private SlideShowFileManager slideShowIO;
-    private Object Dialogs;
 
     /**
      * This default constructor starts the program without a slide show file being
@@ -59,7 +56,7 @@ public class FileController {
      */
     public void handleNewSlideShowRequest() {
         try {
-            // WE MAY HAVE TO SAVE CURRENT WORK
+          // WE MAY HAVE TO SAVE CURRENT WORK
             boolean continueToMakeNew = true;
             if (!saved) {
                 // THE USER CAN OPT OUT HERE WITH A CANCEL
@@ -71,62 +68,20 @@ public class FileController {
                 // RESET THE DATA, WHICH SHOULD TRIGGER A RESET OF THE UI
                 SlideShowModel slideShow = ui.getSlideShow();
 		slideShow.reset();
-                
-                
-       
                 saved = false;
 
                 // REFRESH THE GUI, WHICH WILL ENABLE AND DISABLE
                 // THE APPROPRIATE CONTROLS
                 ui.updateToolbarControls(saved);
-                ui.reloadSlideShowPane(slideShow);
-                ui.textField.clear();
-                
-                // TELL THE USER THE SLIDE SHOW HAS BEEN CREATED
-                // @todo
-            }
-        } catch (IOException ioe) {
-            ErrorHandler eH = ui.getErrorHandler();
-            // @todo provide error message
-            
-                    
-        }
-    }
-    
-    
-    public void handleSlideShowViewRequest(){
-        try {
-            // WE MAY HAVE TO SAVE CURRENT WORK
-            boolean continueToView = true;
-            if (!saved) {
-                // THE USER CAN OPT OUT HERE WITH A CANCEL
-                continueToView = promptToSave();
-            }
 
-            // IF THE USER REALLY WANTS TO MAKE A NEW COURSE
-            if (continueToView) {
-                // RESET THE DATA, WHICH SHOULD TRIGGER A RESET OF THE UI
-                SlideShowModel slideShow = ui.getSlideShow();
-                ui.slideShowView();
-                saved = false;
-                   markAsEdited();
-                // REFRESH THE GUI, WHICH WILL ENABLE AND DISABLE
-                // THE APPROPRIATE CONTROLS
-                ui.updateToolbarControls(saved);
-                    
-                // TELL THE USER THE SLIDE SHOW HAS BEEN CREATED
-                // @todo
+		// MAKE SURE THE TITLE CONTROLS ARE ENABLED
+		ui.reloadTitleControls();		
             }
         } catch (IOException ioe) {
             ErrorHandler eH = ui.getErrorHandler();
-            // @todo provide error message
+            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
         }
     }
-    
-    
-    
-    
-    
 
     /**
      * This method lets the user open a slideshow saved to a file. It will also
@@ -139,7 +94,6 @@ public class FileController {
             if (!saved) {
                 // THE USER CAN OPT OUT HERE WITH A CANCEL
                 continueToOpen = promptToSave();
-               
             }
 
             // IF THE USER REALLY WANTS TO OPEN A POSE
@@ -147,10 +101,9 @@ public class FileController {
                 // GO AHEAD AND PROCEED MAKING A NEW POSE
                 promptToOpen();
             }
-       
         } catch (IOException ioe) {
             ErrorHandler eH = ui.getErrorHandler();
-            //@todo provide error message
+            eH.processError(LanguagePropertyType.ERROR_DATA_FILE_LOADING);
         }
     }
 
@@ -158,12 +111,13 @@ public class FileController {
      * This method will save the current slideshow to a file. Note that we already
      * know the name of the file, so we won't need to prompt the user.
      */
-    public void handleSaveSlideShowRequest() {
+    public boolean handleSaveSlideShowRequest() {
         try {
+            
+            
 	    // GET THE SLIDE SHOW TO SAVE
 	    SlideShowModel slideShowToSave = ui.getSlideShow();
-            
-	    slideShowToSave.setTitle(slideShowToSave.getTitle());
+	    
             // SAVE IT TO A FILE
             slideShowIO.saveSlideShow(slideShowToSave);
 
@@ -173,12 +127,28 @@ public class FileController {
             // AND REFRESH THE GUI, WHICH WILL ENABLE AND DISABLE
             // THE APPROPRIATE CONTROLS
             ui.updateToolbarControls(saved);
-	    
+	    return true;
         } catch (IOException ioe) {
             ErrorHandler eH = ui.getErrorHandler();
-            // @todo
-	   
+            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
+	    return false;
         }
+    }
+
+    /**
+     * This method shows the current slide show in a separate window.
+     */
+    public void handleViewSlideShowRequest() {
+        try {
+            WebsiteGeneration test = new WebsiteGeneration(ui);
+        } catch (IOException ex) {
+            Logger.getLogger(FileController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+        SlideShowWebView viewer = new SlideShowWebView(ui);
+        viewer.startWebPage();
+	//SlideShowViewer viewer = new SlideShowViewer(ui);
+	//viewer.startSlideShow();
     }
 
      /**
@@ -193,7 +163,7 @@ public class FileController {
                 // THE USER CAN OPT OUT HERE
                 continueToExit = promptToSave();
             }
-            markAsEdited();
+
             // IF THE USER REALLY WANTS TO EXIT THE APP
             if (continueToExit) {
                 // EXIT THE APPLICATION
@@ -201,7 +171,7 @@ public class FileController {
             }
         } catch (IOException ioe) {
             ErrorHandler eH = ui.getErrorHandler();
-            // @todo
+            eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
         }
     }
 
@@ -222,19 +192,8 @@ public class FileController {
      */
     private boolean promptToSave() throws IOException {
         // PROMPT THE USER TO SAVE UNSAVED WORK
-       boolean saveWork = false;
-       TextInputDialog dialog = new TextInputDialog("");
-        dialog.setTitle("Save Input");
-        dialog.setHeaderText("Do you wanna save your work first!!");
-        dialog.setContentText("The name of your file:");
+        boolean saveWork = true; 
 
-// Traditional way to get the response value.
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
-             saveWork = true;
-            }
-        
-        
         // IF THE USER SAID YES, THEN SAVE BEFORE MOVING ON
         if (saveWork) {
             SlideShowModel slideShow = ui.getSlideShow();
@@ -269,13 +228,12 @@ public class FileController {
             try {
 		SlideShowModel slideShowToLoad = ui.getSlideShow();
                 slideShowIO.loadSlideShow(slideShowToLoad, selectedFile.getAbsolutePath());
-                ui.reloadSlideShowPane(slideShowToLoad);
-                SlideShowMakerView.textField.setText(slideShowToLoad.getTitle());
+                ui.reloadSlideShowPane();
                 saved = true;
                 ui.updateToolbarControls(saved);
             } catch (Exception e) {
                 ErrorHandler eH = ui.getErrorHandler();
-                // @todo
+		eH.processError(LanguagePropertyType.ERROR_UNEXPECTED);
             }
         }
     }
@@ -300,7 +258,5 @@ public class FileController {
     public boolean isSaved() {
         return saved;
     }
-
-   
 }
 

@@ -1,0 +1,21 @@
+
+{
+    "title":"Utah",
+    "slides":[
+        {
+            "image_file_name":"ArchesUtah.jpg",
+            "image_path":"/Users/Sushi/NetBeansProjects/SharmaSurajHW2COPY/SlideshowMaker/images/slide_show_images/",
+            "caption":"ENTER CAPTION"
+        },
+        {
+            "image_file_name":"CarhengeNebraska.jpg",
+            "image_path":"/Users/Sushi/NetBeansProjects/SharmaSurajHW2COPY/SlideshowMaker/images/slide_show_images/",
+            "caption":"ENTER CAPTION"
+        },
+        {
+            "image_file_name":"BryceCanyonUtah.jpg",
+            "image_path":"/Users/Sushi/NetBeansProjects/SharmaSurajHW2COPY/SlideshowMaker/images/slide_show_images/",
+            "caption":"ENTER CAPTION"
+        }
+    ]
+}

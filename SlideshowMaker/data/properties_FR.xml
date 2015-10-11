@@ -6,7 +6,8 @@
 -->
 <properties>
     <property_list>    
-        <property name="TITLE_WINDOW"		value="Slide Show Maker"></property>  
+        <property name="TITLE_WINDOW"		value="Slide Show Maker"></property>
+        <property name="TITLE"                  value="Titre"></property>
         
         <!-- PROGRAM ICON FILES -->
 	
@@ -46,6 +47,12 @@
         <property name="STARTING_MONDAY_LABEL"          value="À partir de lundi :"></property>
         <property name="ENDING_FRIDAY_LABEL"            value="Fin Vendredi:"></property>
         <property name="LECTURE_DAY_SELECT_LABEL"       value="Jours de cours"></property>
+        
+        <property name= "ERROR_DATA_FILE_LOADING"       value="Erreur lors du chargement des fichiers de            données"></property>
+        <property name="ERROR_PROPERTIES_FILE_LOADING"       value="Propriétés Erreur de chargement"></property>
+        
+        <property name="ERROR_HEADER"       value="Quelque chose a mal"></property>
+        <property name="ERROR_MESSAGE"       value="Veuillez réessayer!!"></property>
     </property_list>
     <property_options_list>
     </property_options_list>
