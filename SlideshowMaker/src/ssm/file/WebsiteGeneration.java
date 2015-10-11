@@ -146,6 +146,51 @@ public class WebsiteGeneration {
             
             
           // For Creating a blank html page
+           
+            try{   
+            
+            InputStream inStream_html = null;
+            OutputStream outStream_html = null;
+    	    File original_html =new File("./index.html");
+    	    File new_html =new File(Paths.get(path) + "/index.html");
+    		
+    	    inStream_html = new FileInputStream(original_html);
+    	    outStream_html= new FileOutputStream(new_html);
+        	
+    	    byte[] buffer = new byte[1024];
+    		
+    	    int length;
+    	    //copy the file content in bytes 
+    	    while ((length = inStream_html.read(buffer)) > 0){
+    	  
+    	    	outStream_html.write(buffer, 0, length);
+    	 
+    	    }
+    	 
+    	    inStream_html.close();
+    	    outStream_html.close();
+    	   
+    	    System.out.println("File is copied successful!");
+    	    
+    	}catch(IOException e){
+    	    e.printStackTrace();
+        } 
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
        
         
