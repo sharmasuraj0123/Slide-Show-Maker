@@ -41,7 +41,7 @@ import ssm.view.SlideShowMakerView;
 
 /**
  *
- * @author Sushi
+ * @author Suraj Sharma
  */
 public class WebsiteGeneration {
 
@@ -68,18 +68,37 @@ public class WebsiteGeneration {
                 
         
         // Generating a javascript file  
-        
-       StringBuilder javascript = new StringBuilder();
-        javascript.append("document.write(\"hello\");");
-//        javascript.append("<html><body>");
-//        javascript.append("<script src = \"Slideshow.js\" ></script>\n");
-//        javascript.append("</body></html>\n");
-//        
-
-        FileWriter writer = new FileWriter(Paths.get(path) +"/js/" + "/Slideshow.js");
-        writer.write(javascript.toString());
-        writer.close();
-        
+       
+         try{   
+            
+            InputStream inStream_js = null;
+            OutputStream outStream_js = null;
+    	    File original_javascript =new File("./Slideshow.js");
+    	    File new_javascript =new File(Paths.get(path) + "/js/Slideshow.js");
+    		
+    	    inStream_js = new FileInputStream(original_javascript);
+    	    outStream_js = new FileOutputStream(new_javascript);
+        	
+    	    byte[] buffer = new byte[1024];
+    		
+    	    int length;
+    	    //copy the file content in bytes 
+    	    while ((length = inStream_js.read(buffer)) > 0){
+    	  
+    	    	outStream_js.write(buffer, 0, length);
+    	 
+    	    }
+    	 
+    	    inStream_js.close();
+    	    outStream_js.close();
+    	    
+  
+    	    
+    	    System.out.println("File is copied successful!");
+    	    
+    	}catch(IOException e){
+    	    e.printStackTrace();
+        } 
         
 
         
@@ -128,18 +147,7 @@ public class WebsiteGeneration {
             
           // For Creating a blank html page
             
-        StringBuilder htmlBuilder = new StringBuilder();
-        htmlBuilder.append("<!DOCTYPE html>\n");
-        htmlBuilder.append("<html><body>\n");
-        //htmlBuilder.append("<!DOCTYPE html>");
-        
-        htmlBuilder.append("<script src =\"js/Slideshow.js\"></script>\n");
-        htmlBuilder.append("</body></html>\n");
-        
-
-        FileWriter writer2 = new FileWriter(Paths.get(path) + "/index.html");
-        writer2.write(htmlBuilder.toString());
-        writer2.close();    
+       
         
     }
     
