@@ -73,7 +73,7 @@ public class WebsiteGeneration {
             
             InputStream inStream_js = null;
             OutputStream outStream_js = null;
-    	    File original_javascript =new File("./Slideshow.js");
+    	    File original_javascript =new File("./js/Slideshow.js");
     	    File new_javascript =new File(Paths.get(path) + "/js/Slideshow.js");
     		
     	    inStream_js = new FileInputStream(original_javascript);
@@ -183,7 +183,7 @@ public class WebsiteGeneration {
             
             InputStream inStream_css = null;
             OutputStream outStream_css = null;
-    	    File original_css =new File("./slideshow_style.css");
+    	    File original_css =new File("./css/slideshow_style.css");
     	    File new_css =new File(Paths.get(path) + "/css/slideshow_style.css");
     		
     	    inStream_css = new FileInputStream(original_css);
@@ -234,6 +234,7 @@ public class WebsiteGeneration {
 
 	// NOW BUILD THE COURSE USING EVERYTHING WE'VE ALREADY MADE
 	JsonObject slideShowJsonObject = Json.createObjectBuilder()
+                .add(JSON_TITLE, slideShowToSave.getTitle())
 		.add(JSON_SLIDES, slidesJsonArray)
 		.build();
 
@@ -270,8 +271,7 @@ public class WebsiteGeneration {
     private JsonObject makeSlideJsonObject(Slide slide) {
 	JsonObject jso = Json.createObjectBuilder()
 		.add(JSON_IMAGE_FILE_NAME, slide.getImageFileName())
-		.add(JSON_IMAGE_PATH,"sites/"+ slideshow.getTitle() + "/img/"+
-                   slide.getImageFileName())
+		.add(JSON_IMAGE_PATH, "./img/"+ slide.getImageFileName())
 		.add(JSON_CAPTION, slide.getCaption())
 		.build();
 	return jso;
