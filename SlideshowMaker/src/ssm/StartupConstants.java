@@ -53,6 +53,7 @@ public class StartupConstants {
     public static String    CSS_CLASS_HORIZONTAL_TOOLBAR = "horizontal_toolbar";
     
     public static String    CSS_CLASS_COMBOBOX = "Combo_Box";
+    public static String    CSS_CLASS_TEXTFEILD = "TexFeild";
     public static String    CSS_CLASS_VBOX = "vbox";
     
     // UI LABELS
