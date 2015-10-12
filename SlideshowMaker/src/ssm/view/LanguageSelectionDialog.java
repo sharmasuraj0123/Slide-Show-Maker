@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import static ssm.StartupConstants.CSS_CLASS_COMBOBOX;
+import static ssm.StartupConstants.CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON;
+import static ssm.StartupConstants.CSS_CLASS_TEXTFEILD;
 import static ssm.StartupConstants.CSS_CLASS_VBOX;
 import static ssm.StartupConstants.ENGLISH_LANG;
 import static ssm.StartupConstants.FINNISH_LANG;
@@ -29,6 +31,7 @@ public class LanguageSelectionDialog extends Stage {
     
     public LanguageSelectionDialog() {
 	languagePromptLabel = new Label(LABEL_LANGUAGE_SELECTION_PROMPT);
+        languagePromptLabel.getStyleClass().add(CSS_CLASS_TEXTFEILD);
 	
 	// INIT THE LANGUAGE CHOICES
 	ObservableList<String> languageChoices = FXCollections.observableArrayList();
@@ -39,6 +42,7 @@ public class LanguageSelectionDialog extends Stage {
         
 	languageComboBox.getSelectionModel().select(ENGLISH_LANG);
 	okButton = new Button(OK_BUTTON_TEXT);
+        okButton.getStyleClass().add(CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON);
 	
 	vBox = new VBox();
         vBox.getStyleClass().add(CSS_CLASS_VBOX);
